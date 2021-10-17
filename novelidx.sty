@@ -51,12 +51,12 @@
 }
 \newcommand{\IXAssociatedCharacter}[4]{%
     \expandafter\def\csname CHAR#1\endcsname {%
-        \protect\index[char]{#4!#3, #2}
-        \protect\index[master]{Characters!#3, #2}
+        \protect\index[char]{#4!#3, #2} %
+        \protect\index[master]{Characters!#3, #2} %
     }
     \expandafter\def\csname CHARX#1\endcsname ##1 {%
-        \protect\index[char]{#4!#3, #2!##1}
-        \protect\index[master]{Characters!#3, #2!##1}
+        \protect\index[char]{#4!#3, #2!##1} %
+        \protect\index[master]{Characters!#3, #2!##1} %
     }
 }
 \newcommand{\IXSettingCity}[2]{%
@@ -70,7 +70,7 @@
     } %
 }
 \newcommand{\IXSettingCityPlace}[3]{%
-    \expandafter\def\csname LOC#1\endcsname {%
+    \expandafter\def\csname LOC#1\endcsname { %
         \protect\index[setting]{#2!#3} %
         \protect\index[master]{Cities!#2} %
         \protect\index[master]{Locations!#2!#3} %
@@ -97,7 +97,7 @@
         \protect\index[master]{Locations!#2!#3!#4 --- ##1}  %
     }
 }
-\newcommand{\IXSettingCharacterPlace}[5]{ %
+\newcommand{\IXSettingCharacterPlace}[5] { %
     \expandafter\def\csname LOC#1\endcsname { %
         \protect\index[character]{#3, #2!#4!#5} %
         \protect\index[setting]{#4!#3, #2 - #5} %
@@ -129,7 +129,7 @@
         \protect\index[master]{Plot Points!#2!#3} %
     } %
     \expandafter\def\csname PLOTX#1\endcsname ##1 { %
-        \protect\index[plot]{#2!#3} %
+        \protect\index[plot]{#2!#3!##1} %
         \protect\index[master]{Plot Points!#2!#3!##1} %
     } %
 }
@@ -150,7 +150,7 @@
         \protect\index[master]{Characters!#3, #2!#4} %
         \protect\index[master]{Plot Points!#4} %
     } %
-    \expandafter\def\csname PLOTX#1\endcsname { %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!#4!Plot - ##1} %
         \protect\index[plot]{#4!##1} %
         \protect\index[master]{Plot Points!#4!##1} %
@@ -170,7 +170,7 @@
         \protect\index[master]{Plot Points!Romantic Relationships!#5, #4!with #5, #2} %
         \protect\index[master]{Relationships!#5, #4!romance with #3, #2} %
     }  %
-    \expandafter\def\csname ROMANCEX#1\endcsname { %
+    \expandafter\def\csname ROMANCEX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!romantic relationships!with #5, #4!##1} %
         \protect\index[plot]{Romantic Relationships!#3, #2!with #5, #4!##1} %
         \protect\index[master]{Characters!#3, #2!romantic relationships!with #5, #4 - ##1} %
@@ -196,7 +196,7 @@
         \protect\index[master]{Plot Points!Friendships!#5, #4!with #5, #2}  %
         \protect\index[master]{Relationships!#5, #4!friendship with #3, #2} %
     }  %
-    \expandafter\def\csname FRIENDSX#1\endcsname { %
+    \expandafter\def\csname FRIENDSX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!friendships!with #5, #4!##1} %
         \protect\index[plot]{Friendships!#3, #2!with #5, #4!##1} %
         \protect\index[master]{Characters!#3, #2!friendships!with #5, #4 - ##1} %
@@ -222,7 +222,7 @@
         \protect\index[master]{Plot Points!Former Relationship!#5, #4!with #5, #2} %
         \protect\index[master]{Relationships!#5, #4!former relationship with #3, #2} %
     }  %
-    \expandafter\def\csname EXESX#1\endcsname { %
+    \expandafter\def\csname EXESX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!former relationship!with #5, #4!##1} %
         \protect\index[plot]{Former Relationship!#3, #2!with #5, #4!##1} %
         \protect\index[master]{Characters!#3, #2!former relationship!with #5, #4 - ##1} %
@@ -244,7 +244,7 @@
         \protect\index[master]{Plot Points!#4} %
         \protect\index[master]{Plot Locations!#2!#4} %
     } %
-    \expandafter\def\csname PLOTX#1\endcsname { %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!#4} %
         \protect\index[plot]{#4} %
         \protect\index[master]{Cities!#2}  %
@@ -262,7 +262,7 @@
         \protect\index[master]{Plot Points!#4!#5} %
         \protect\index[master]{Plot Locations!#2!#4!#5} %
     } %
-    \expandafter\def\csname PLOTX#1\endcsname { %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
         \protect\index[char]{#3, #2!#4!#5!##1} %
         \protect\index[plot]{#4!#5!##1} %
         \protect\index[master]{Cities!#2!##1} %
@@ -279,7 +279,7 @@
         \protect\index[master]{Plot Points!#5, #4!#6} %
         \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6} %
     }
-    \expandafter\def\csname PLOTX#1\endcsname {
+    \expandafter\def\csname PLOTX#1\endcsname ##1 {
         \protect\index[char]{#5, #4!#2!#6!##1} %
         \protect\index[plot]{#5, #4!#6!##1} %
         \protect\index[master]{Cities!#2!##1} %
@@ -295,7 +295,7 @@
         \protect\index[master]{Plot Points!#5, #4!#6!#7} %
         \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6!#7} %
     }
-    \expandafter\def\csname PLOTX#1\endcsname {  %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 {  %
         \protect\index[char]{#5, #4!#2!#6!##1} %
         \protect\index[plot]{#5, #4!#6!##1} %
         \protect\index[master]{Cities!#2!##1} %
@@ -308,7 +308,7 @@
         \protect\index[research]{#1} %
         \protect\index[master]{Research Notes!#1} %
     } %
-    \expandafter\def\csname RSRCHX#1\endcsname { %
+    \expandafter\def\csname RSRCHX#1\endcsname ##1 { %
         \protect\index[research]{#1!##1} %
         \protect\index[master]{Research Notes!#1!##1} %
     }     %
@@ -318,7 +318,7 @@
         \protect\index[revision]{#1} %
         \protect\index[master]{Revision Notes!#1} %
     } %
-    \expandafter\def\csname REVX#1\endcsname { %
+    \expandafter\def\csname REVX#1\endcsname ##1 { %
         \protect\index[revision]{#1!##1} %
         \protect\index[master]{Revision Notes!#1!##1} %
     } %
