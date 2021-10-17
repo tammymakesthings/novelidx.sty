@@ -4,28 +4,81 @@
 \usepackage{novelidx}
 \usepackage{lipsum}
 
-\SetupNovelIndexes
+% Define all the index marking commands for our test
 
 \IXcharacter{kaylen}{Kaylen}{Grace}
 \IXcharacter{nikki}{Nikki}{Saylor}
+\IXcharacter{jeff}{Jeff}{Jeffs}
+\IXAssociatedCharacter{dan}{Phoenix Police}{Daniel}{Yazzie}
+\IXAssociatedCharacter{riley}{Pima County Sheriff}{Riley}{Fosbeck}
+\IXRomance{rileynikki}{Riley}{Fosbeck}{Nikki}{Saylor}
+\IXFriends{kaylennikki}{Nikki}{Saylor}{Kaylen}{Grace}
+\IXExes{jeffniki}{Nikki}{Saylor}{Jeff}{Jeffs}
+\IXSettingCity{casagrande}{Casa Grande}
+\IXSettingCityPlace{dpshq}{Phoenix}{DPS Headquarters}
+\IXSettingCategoryPlace{chefalisah}{Restaurants}{Tucson}{Chef Alisah}
+\IXSettingCharacterPlace{nikkioffice}{Nikki}{Saylor}{Phoenix}{Office}
+\IXPlotPoint{harassment}{Office Harassment}
+\IXPlotSubPoint{leilacellphone}{Leila's Murder}{cell phone}
+\IXPlotSubSubPoint{ziptie}{Leila's Murder}{physical evidence}{zip tie}
+\IXCharacterPlotPoint{danshooting}{Daniel}{Yazzie}{Shooting}
+\IXLocatedPlotPoint{leilarental}{Tucson}{Leila's Rental House}{Leila's Murder}
+\IXLocatedSubPlotPoint{stolenccard}{Williams}{Leland's House}{stolen credit card}{bank statements}
+\IXLocatedCharacterPlotPoint{leilacar}{Tucson}{Leila's Rental House}{Leila}{Romaine}{location of car}
+\IXLocatedSubPlotPoint{cellphonedump}{Sacaton}{Rest Stop}{Leila's Murder}{Located cell phone}
+\IXLocatedCharacterSubPlotPoint{cellphonedumpx}{Sacaton}{Rest Stop}{Leila}{Romaine}{Leila's Murder}{Located cell phone}
+\IXResearch{warrants}{Mincey Warrants}
+\IXRevision{fixthis}{Fix a thing}
 
 \begin{document}
 
+% ANd now let's use them
+
 \chapter{Chapter One}
-\lipsum{2}
-\CHARkaylen \lipsum{3}
-\CHARnikki \lipsum{3}
-\CHARkaylen
-\lipsum{5}
+\CHARkaylen \lipsum{1}
+\CHARnikki \lipsum{1}
+\CHARjeff \lipsum{1}
+\CHARdan \lipsum{1}
+\CHARriley \lipsum{1}
+\ROMANCErileynikki \lipsum{1}
+\FRIENDSkaylennikki \lipsum{1}
+\LOCdpshq \lipsum{1}
+\LOCchefalisah \lipsum{1}
+\LOCnikkioffice \lipsum{1}
+\PLOTharassment \lipsum{1}
+\PLOTleilacellphone \lipsum{1}
+\PLOTziptie \lipsum{1}
+\PLOTdanshooting \lipsum{1}
+\PLOTleilarental \lipsum{1}
+\PLOTstolenccard \lipsum{1}
+\PLOTleilacar \lipsum{1}
+\PLOTcellphonedump \lipsum{1}
+\PLOTcellphonedumpx \lipsum{1}
+\RSRCHwarrants \lipsum{1}
+\REVfixthis \lipsum{1}
 
 \chapter{Chapter Two}
-\lipsum{5}
-\CHARkaylen \lipsum{4}
-\CHARnikki \lipsum{5}
-\CHARXnikki{foo} \lipsum{3}
-\CHARXnikki{foo!bar} \lipsum{3}
-\CHARkaylen
-\lipsum{5}
+\CHARXkaylen{extra text} \lipsum{1}
+\CHARXnikki{extra text} \lipsum{1}
+\CHARXjeff{extra text} \lipsum{1}
+\CHARXdan{extra text} \lipsum{1}
+\CHARXriley{extra text} \lipsum{1}
+\ROMANCEXrileynikki{extra text} \lipsum{1}
+\FRIENDSXkaylennikki{extra text} \lipsum{1}
+\LOCXdpshq{extra text} \lipsum{1}
+\LOCXchefalisah{extra text} \lipsum{1}
+\LOCXnikkioffice{extra text} \lipsum{1}
+\PLOTXharassment{extra text} \lipsum{1}
+\PLOTXleilacellphone{extra text} \lipsum{1}
+\PLOTXziptie{extra text} \lipsum{1}
+\PLOTXdanshooting{extra text} \lipsum{1}
+\PLOTXleilarental{extra text} \lipsum{1}
+\PLOTXstolenccard{extra text} \lipsum{1}
+\PLOTXleilacar{extra text} \lipsum{1}
+\PLOTXcellphonedump{extra text} \lipsum{1}
+\PLOTXcellphonedumpx{extra text} \lipsum{1}
+\RSRCHXwarrants{extra text} \lipsum{1}
+\REVXfixthis{extra text} \lipsum{1}
 
 \cleardoublepage
 \PrintNovelIndexes
