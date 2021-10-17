@@ -1,0 +1,1094 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2021 by Tammy Cravit <tammymakesthings@gmail.com>
+% ---------------------------------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is <Tammy Cravit>.
+%
+% This work consists of the files novelidx.dtx and novelidx.ins
+% and the derived filebase novelidx.sty.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{novelidx.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{novelidx}
+%<*package>
+    [2021-10-17 0.1.0 Indexing helpers for novel writing]
+%</package>
+%
+%<*driver>
+\documentclass[letterpaper]{ltxdoc}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{novelidx}[2021/10/17]
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{novelidx.dtx}
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{555}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2021-10-17}{Converted to DTX file}
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+% \providecommand*{\url}{\texttt}
+% \GetFileInfo{novelidx.dtx}
+% \title{The \textsf{novelidx} package}
+% \author{Tammy Cravit \\ \url{tammymakesthings@gmail.com}}
+% \date{\fileversion~from \filedate}
+%
+% \maketitle
+%
+% \section{Introduction}
+%
+% \LaTeX is suitable for publishing all sorts of documents --- including novels.
+% Using the appropriate tools, \LaTeX can produce printed books, but also e-books
+% in a variety of formats.
+%
+% The \LaTeX toolset can help authors with other tasks beyond just creating
+% finished documents, though. One of the challenges I face as a writer of series
+% novels is keeping track of details. ``Where did I say my main character was
+% born?'' ``What color was the getaway car?'' Questions like these can vex
+% writers fiction. The \textsf{novelidx} package was intended to help solve this
+% problem.
+%
+% Using the indexing facilities of \LaTeX I can mark such pieces of information
+% in my manuscript. I can then generate indexes of important characters, settings,
+% plot points, and so forth. These allow me to print a ``series bible'' version
+% of my books that can help me keep these details straight.
+%
+% One could easily accomplish this task using just the \textsf{imakeidx} \LaTeX
+% package. In fact, this is how I initially solved this problem. But then I
+% discovered that I had many inconsistently named and formatted indexing entries
+% in my manuscript. And too, keeping these index entries consistent when you
+% have to add multiple index entries to your manuscript was a constant challenge.
+%
+% The \textsf{novelidx} package attempts to simplify this by providing a set of
+% macros that, in turn, define commands which can be used to insert the
+% appropriate index entry markers at each relevant point in the document.
+%
+% \section{Setting Up Your Document}
+%
+% The basic setup of the document is simple: Just add a
+% \verb|\usepackage{novelidx}| statement to your document to import the
+% package. Then, use the macros in the package to define your indexing
+% commands. Lastly, use the indexing commands you've defined (and others, if
+% necessary) to notate the important characters, locations, and so forth in
+% your manuscript.
+%
+% \DescribeMacro{\SetupNovelIndexes}
+%
+% The \verb|\SetupNovelIndexes| macro sets up the indexes for your manuscript.
+% We use the \verb|AtEndPreamble| macro from \texttt{etoolbox} to automatically
+% invoke the macro, so you shouldn't have to call it directly. It creates the
+% following indexes in your document:
+%
+% \begin{description}
+%     \item[\texttt{char}] Indexes characters and their relationships, as well as
+%     character-focused plot points and locations.
+%     \item[\texttt{setting}] Indexes locations throughout the manuscript.
+%     \item[\texttt{plot}] Indexes plot points and plot information.
+%     \item[\texttt{revision}] Indexes revision notes in the manuscript.
+%     \item[\texttt{research}] Indexes research notes in the manuscript.
+%     \item[\texttt{master}] Holds the ``master'' index, a cross-reference of all
+%     the information about your manuscript.
+% \end{description}
+%
+% Although the \textsf{novelidx} package provides macros to help you build
+% indexing commands, it leverages the capabilities of the \textsf{lmakeidx}
+% package to do so. This means you can alos manually add entries to your index
+% using the \verb|\index| command provided by that package, adding your entries
+% to the appropriate index(es) as necessary.
+%
+% \section{Defining \& Using the Indexing Macros}
+%
+% The \textsf{novelidx} package provides macros which create indexing commands
+% for the characters, settings, plot points, and so forth in your work. This
+% simplifies the process of adding index markings to your manuscript. There are
+% a variety of macros for defining indexing commands, and the index marking
+% commands they create follow a similar nomenclature.
+%
+% Each command definition macro in the \textsf{novelidx} package creates two
+% commands. The ``standard'' form of the command adds appropriate entries to
+% the relevant indexes, and takes no arguments. An ``extra'' form of each
+% command, with an ``X'' appended to its name, allows you to pass optional
+% extra information into the index. How this extra information is rendered
+% depends on the specific command being used.
+%
+% For clarity, we'll refer to the commands contained in the \textsf{novelidx}
+% package --- those that \emph{define} the indexing terms --- as ``index
+% creation macros'', and the commands which these macros define as ``index
+% marking macros''.
+%
+% The index marking commands created by the package follow a consistent 
+% naming pattern, as follows:
+%
+% \begin{center}
+% \begin{tabularx}{\textwidth}{|l|l|ll|}
+% \hline
+% \textbf{Entry Type} & \textbf{Subtype}             & \textbf{``Standard'' Prefix} & \textbf{``Extra'' Prefix} \\
+% \hline
+% \textbf{Character}  & Normal Character             & \texttt{CHAR}                & \texttt{CHARX}            \\
+% \textbf{Character}  & Romantic Relationship        & \texttt{ROMANCE}             & \texttt{ROMANCEX}         \\
+% \textbf{Character}  & Friendship                   & \texttt{FRIENDS}             & \texttt{FRIENDSX}         \\
+% \textbf{Character}  & Former Romantic Relationship & \texttt{EXES}                & \texttt{EXESC}            \\
+% \cline
+% \multicolumn{2}{|l|}\textbf{Setting}               & \texttt{LOC}                 & \texttt{LOCX}             \\
+% \multicolumn{2}{|l|}\textbf{Plot Point}            & \texttt{PLOT}                & \texttt{PLOTX}            \\
+% \multicolumn{2}{|l|}\textbf{Research Item}         & \texttt{RSRCH}               & \texttt{RSRCHX}           \\
+% \multicolumn{2}{|l|}\textbf{Revision Item}         & \texttt{REV}                 & \texttt{REVX}             \\
+% \hline
+% \end{tabular}
+% \end{center}
+%
+%
+% Each index creation macro takes a specific number of arguments as described
+% in the following sections. The first argument of each macro is always a
+% ``prefix'' which is added to the end of the prefix listed in the table above
+% to form the name of the resulting index marking macro. For example, after
+% including the commands:
+%
+% \begin{verbatim}
+%   \IXCharacter{jane}{Jane}{Smith}
+%   \IXCharacter{doug}{Doug}{Jones}
+%   \IXSettingCityPlace{janeshouse}{Phoenix}{Jane's House}
+%   \IXFriends{janedoug}{Jane}{Smith}{Doug}{Jones}
+% \end{verbatim}
+%
+% The following index marking macros will exist for indexing:
+%
+% \begin{itemize}
+%     \item The index marking macros \verb|\CHARjane| and \verb|\CHARXjane| for
+%     adding index entries about Jane;
+%     \item The index marking macros \verb|\CHARdoug| and \verb|\CHARXdoug| for
+%     adding index entries about Doug;
+%     \item The index marking macros \verb|\LOCjaneshouse| and
+%     \verb|\LOCxjaneshouse| for adding index entries about Jane's house;
+%     \item The index marking macros \verb|\FRIENDSjanedoug| and
+%     \verb|\FRIENDSXjanedoug| for marking information about Jane \& Doug's
+%     friendship.
+% \end{itemize}
+%
+% The index creation macros are described in the following sections.
+%
+% \subsection{Indexing Characters}
+%
+% \DescribeMacro{\IXcharacter}
+%
+% The \verb|\IXCharacter| macro creates index marking commands for marking
+% information about a specific character. It is the simplest form of index
+% creation command for
+% characters.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Character first name
+%             \item Character last name
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXAssociatedCharacter}
+%
+% The \verb|\IXAssociatedCharacter| macro creates index marking commands for
+% marking information about a character associated with a specific organization.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Character first name
+%             \item Character last name
+%             \item Character association/organization name
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXRomance}
+%
+% The \verb|\IXRomance| macro creates index marking commands for marking the fact
+% that two characters have a romantic relationship.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item First character's first name
+%             \item First character's last name
+%             \item Second character's first name
+%             \item Second character's last name
+%         \end{enumerate}
+%     \item[Notes] The relationships are created reciprocally --- that is, index
+%     entries are added to reflect that the first character is in a romantic
+%     relationship with the second character, and also that the second character
+%     is in a relationship with the first. Reciprocal entries are also added to
+%     the plot point and master indexes.
+% \end{description}
+%
+% \DescribeMacro{\IXFriends}
+%
+% The \verb|\IXFriends| macro creates index marking commands for marking the fact
+% that two characters have a friendship.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item First character's first name
+%             \item First character's last name
+%             \item Second character's first name
+%             \item Second character's last name
+%         \end{enumerate}
+%     \item[Notes] The relationships are created reciprocally --- that is, index
+%     entries are added to reflect that the first character is friends with the
+%     second character, and also that the second character is friends with the
+%     first. Reciprocal entries are also added to the plot point and master
+%     indexes.
+% \end{description}
+%
+% \DescribeMacro{\IXExes}
+%
+% The \verb|\IXFriends| macro creates index marking commands for marking the fact
+% that two characters had a romantic relationship in the past.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item First character's first name
+%             \item First character's last name
+%             \item Second character's first name
+%             \item Second character's last name
+%         \end{enumerate}
+%     \item[Notes] The relationships are created reciprocally --- that is, index
+%     entries are added to reflect that the first character is in a romantic
+%     relationship with the second character, and also that the second character
+%     is in a relationship with the first. Reciprocal entries are also added to
+%     the plot point and master indexes.
+% \end{description}
+%
+% \subsection{Indexing Places}
+%
+% \DescribeMacro{\IXSettingCity}
+%
+% The \verb|\IXSettingCity| macro creates index marking commands for marking
+% references to a specific city.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXSettingCityPlace}
+%
+% The \verb|\IXSettingCityPlace| macro creates index marking commands for marking
+% references to a specific place within a city.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXSettingCategoryPlace}
+%
+% The \verb|\IXSettingCategoryPlace| macro creates index marking commands for
+% marking references to a specific type of place within a city. For example, if
+% you wanted to index crime scene locations within your book, you could use this
+% macro to tag them.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Setting category
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+%
+% \DescribeMacro{\IXSettingCharacterPlace}
+%
+% The \verb|\IXSettingCharacterPlace| macro creates index marking commands for
+% marking references to a place associated with a specific character.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Character first name
+%             \item Character last name
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \subsection{Indexing Plot Points}
+%
+% \DescribeMacro{\IXPlotPoint}
+%
+% The \verb|\IXPlotPoint| macro creates index marking commands for
+% marking references to a specific plot thread within your story.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Plot point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXPlotSubPoint}
+%
+% The \verb|\IXPlotSubPoint| macro creates index marking commands for
+% marking references to a specific sub-plot level plot thread within
+% your story.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Plot point description
+%             \item Plot sub-point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXPlotSubSubPoint}
+%
+% The \verb|\IXPlotSubSubPoint| macro creates index marking commands for
+% marking references to a specific sub-sub-plot level plot thread within
+% your story.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Plot point description
+%             \item Plot sub-point description
+%             \item Plot sub-sub-point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXCharacterPlotPoint}
+%
+% The \verb|\IXCharacterPlotPoint| macro creates index marking commands for
+% marking references to a specific plot thread within your story, and also
+% associates that plot thread with a specific character.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item Character first name
+%             \item Character last name
+%             \item Plot point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXLocatedPlotPoint}
+%
+% The \verb|\IXLocatedPlotPoint| macro creates index marking commands for
+% marking references to a specific plot thread within your story, and also
+% associates that plot thread with a specific location.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%             \item Plot point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXLocatedSubPlotPoint}
+%
+% The \verb|\IXLocatedSubPlotPoint| macro creates index marking commands for
+% marking references to a specific sub-plot level plot thread within your story,
+% and also associates that plot thread with a specific location.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%             \item Plot point description
+%             \item Plot sub-point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+%
+% \DescribeMacro{\IXLocatedCharacterPlotPoint}
+%
+% The \verb|\IXLocatedCharacterPlotPoint| macro creates index marking commands for
+% marking references to a specific plot thread within your story, and also
+% associates that plot thread with a specific location and character.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%             \item Character first name
+%             \item Character last name
+%             \item Plot point description
+%             \item Plot sub-point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXLocatedSubPlotPoint}
+%
+% The \verb|\IXLocatedSubPlotPoint| macro creates index marking commands for
+% marking references to a specific sub-plot level plot thread within your story,
+% and also associates that plot thread with a specific location.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%             \item Plot point description
+%             \item Plot sub-point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \DescribeMacro{\IXLocatedCharacterSubPlotPoint}
+%
+% The \verb|\IXLocatedCharacterSubPlotPoint| macro creates index marking
+% commands for marking references to a specific sub-plot level plot thread
+% within your story, and also associates that plot thread with a specific
+% location and character.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%             \item City name (or city/state, etc.~)
+%             \item Place name
+%             \item Character first name
+%             \item Character last name
+%             \item Plot point description
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \subsection{Indexing Research and Revision Notes}
+%
+% \DescribeMacro{\IXResearch}
+%
+% The \verb|\IXResearch| macro creates index marking commands for
+% marking places in your manuscript where additional research is needed.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+%
+% \DescribeMacro{\IXRevision}
+%
+% The \verb|\IXRevision| macro creates index marking commands for
+% marking places in your story where revision is required.
+%
+% \begin{description}
+%     \item[Arguments]
+%         \begin{enumerate}
+%             \item Index-marking command tag (must be unique)
+%         \end{enumerate}
+%     \item[Notes]
+% \end{description}
+%
+% \section{Generating the Indexes}
+%
+% After you have marked all of the relevant indexing entries in your
+% manuscript, all that remains is to output the indexes (or not). This is handled
+% by the \verb|\PrintNovelIndexes| macro. I wrap the call to
+% \verb|PrintNovelIndexes| inside a conditional so I can include the indexes in
+% my personal author copy of my books but not in the print-ready PDFs I generate
+% for publication.
+%
+% \DescribeMacro{\PrintNovelIndexes}
+%
+% The \verb|\PrintNovelIndexes| macro performs a \verb|\cleardoublepage| and then
+% outputs the indexes. The character, plot, setting, revision, research, and
+% master cross-reference indexes are all output, in that order. The macro performs
+% a \verb|\cleardoublepage| before outputting the indexes.
+%
+% \section{Opportunities for Enhancement}
+%
+% The initial version of the package is very rough, and was built with just
+% enough functionality for my needs. (I am nonetheless sharing it in the hope
+% that it might be useful for others). Some obvious opportunities for
+% improvement exist, including but not limited to:
+%
+% \begin{itemize}
+%     \item Refactoring to reduce the amount of repetitive code;
+%     \item Modifying \verb|\PrintNovelIndexes| to not output indexes which
+%     don't contain any entries, and to give the user better control over the
+%     formatting of the indexes;
+%     \item Adding controls for the order in which the indexes are output;
+%     \item Better control over how index entries are generated, including
+%     allowing renaming/adjusting the indexing hierarchy;
+%     \item More robust error handling. (Well, okay, \emph{any} error handling
+%     would be an improvement at this point);
+%     \item The ability to generate a reference list of all the index marking
+%     macros defined by a given document.
+% \end{itemize}
+%
+% The author welcomes contributions or enhancement suggestions via
+% \url{https://github.com/tammymakesthings/novelidx.sty}{the GitHub repo} for
+% the project.
+%
+% \section{Author's Note}
+%
+% I was first exposed to \LaTeX in college, more years ago than I care to admit.
+% Although I can thus honestly say ``I have been a \LaTeX user for several
+% decades now'', I have historically been ``guilty'' of learning the absolute
+% minimum amount I needed to get by. It's only been very recently that I've made
+% a concerted effort to raise my base level of knowledge.
+%
+% I am therefore confident there are many areas for improvement in this package.
+% I'm publishing it anyway in the hope that it will be useful for others, and
+% also in the hope that others like me will be encouraged to add their
+% contributionsto the \TeX and \LaTeX community.
+
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+% \iffalse
+%<*package>
+% \fi
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% novelidx: Helper commands for indexing novel metadata
+%%%% Version 1.00, 2021-10-17, Tammy Cravit
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{novelidx}[2021-10-17 novel metadata indexing macros]
+\RequirePackage{etoolbox}
+\RequirePackage{imakeidx}
+%    \end{macrocode}
+%
+% \begin{macro}{\SetupNovelIndexes}
+%    \begin{macrocode}
+\newcommand{\SetupNovelIndexes}{%
+    \indexsetup{level=\chapter*,toclevel=chapter} %
+    \makeindex[name=master,title=Master Cross Reference] %
+    \makeindex[name=char,title=Character Index] %
+    \makeindex[name=setting,title=Setting Index] %
+    \makeindex[name=plot,title=Plot Point Index] %
+    \makeindex[name=revision,title=Revision Notes] %
+    \makeindex[name=research,title=Researct Notes] %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXcharacter}
+% tag, first, last
+%    \begin{macrocode}
+\newcommand{\IXcharacter}[3]{%
+    \expandafter\def\csname CHAR#1\endcsname {%
+        \protect\index[char]{#3, #2} %
+        \protect\index[master]{Characters!#3, #2} %
+    } %
+    \expandafter\def\csname CHARX#1\endcsname ##1 {%
+        \protect\index[char]{#3, #2!##1} %
+        \protect\index[master]{Characters!#3, #2!##1} %
+    }%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXAssociatedCharacter}
+% tag, first, last, association
+%    \begin{macrocode}
+\newcommand{\IXAssociatedCharacter}[4]{%
+    \expandafter\def\csname CHAR#1\endcsname {%
+        \protect\index[char]{#4!#3, #2} %
+        \protect\index[master]{Characters!#3, #2} %
+    }
+    \expandafter\def\csname CHARX#1\endcsname ##1 {%
+        \protect\index[char]{#4!#3, #2!##1} %
+        \protect\index[master]{Characters!#3, #2!##1} %
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXSettingCity}
+% tag, city
+%    \begin{macrocode}
+\newcommand{\IXSettingCity}[2]{%
+    \expandafter\def\csname LOC#1\endcsname {%
+        \protect\index[setting]{#2} %
+        \protect\index[master]{Cities!#2} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 {%
+        \protect\index[setting]{#2!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXSettingCityPlace}
+% tag, city, place
+%    \begin{macrocode}
+\newcommand{\IXSettingCityPlace}[3]{%
+    \expandafter\def\csname LOC#1\endcsname { %
+        \protect\index[setting]{#2!#3} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 {%
+        \protect\index[setting]{#2!#3!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Locations!#2!#3!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXSettingCategoryPlace}
+% tag, category, city, place
+%    \begin{macrocode}
+\newcommand{\IXSettingCategoryPlace}[4]{ %
+    \expandafter\def\csname LOC#1\endcsname { %
+        \protect\index[setting]{#2!#3!#4} %
+        \protect\index[setting]{#3!#2!#4} %
+        \protect\index[master]{Cities!#3} %
+        \protect\index[master]{Locations!#3!#4} %
+        \protect\index[master]{Locations!#2!#3!#4} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 { %
+        \protect\index[setting]{#2!#3!#4!##1} %
+        \protect\index[setting]{#3!#2!#4!##1} %
+        \protect\index[master]{Cities!#3!##1} %
+        \protect\index[master]{Locations!#3!#4!##1}  %
+        \protect\index[master]{Locations!#2!#3!#4 --- ##1}  %
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXSettingCharacterPlace}
+% tag, first name, last name, city, place
+%    \begin{macrocode}
+\newcommand{\IXSettingCharacterPlace}[5] { %
+    \expandafter\def\csname LOC#1\endcsname { %
+        \protect\index[character]{#3, #2!#4!#5} %
+        \protect\index[setting]{#4!#3, #2 - #5} %
+        \protect\index[master]{Cities!#4} %
+        \protect\index[master]{Locations!#4!#3, #2 - #5} %
+        \protect\index[master]{Character Locations!#3, #2!#4!#5} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 { %
+        \protect\index[character]{#3, #2!#4!#5!##1} %
+        \protect\index[setting]{#4!#3, #2 - #5!##1} %
+        \protect\index[master]{Cities!#4!##1} %
+        \protect\index[master]{Locations!#4!#3, #2 - #5!##1} %
+        \protect\index[master]{Character Locations!#3, #2!#4!#5 - ##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXPlotPoint}
+% tag, plot point
+%    \begin{macrocode}
+\newcommand{\IXPlotPoint}[2]{%
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2} %
+        \protect\index[master]{Plot Points!#2}  %
+    } % 
+    \expandafter\def\csname PLOTX#1\endcsname ##1 {%
+        \protect\index[plot]{#2} %
+        \protect\index[master]{Plot Points!#2!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXPlotSubPoint}
+% tag, plot point, plot sub point
+%    \begin{macrocode}
+\newcommand{\IXPlotSubPoint}[3]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2!#3} %
+        \protect\index[master]{Plot Points!#2!#3} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
+        \protect\index[plot]{#2!#3!##1} %
+        \protect\index[master]{Plot Points!#2!#3!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXPlotSubSubPoint}
+% tag, plot point, plot sub point, plot sub sub point
+%    \begin{macrocode}
+\newcommand{\IXPlotSubSubPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2!#3!#4} %
+        \protect\index[master]{Plot Points!#2!#3!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
+        \protect\index[plot]{#2!#3!#4!##1} %
+        \protect\index[master]{Plot Points!#2!#3!#4 - ##1} %
+    } %
+} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXCharacterPlotPoint}
+% tag, first name, last name, plot point
+%    \begin{macrocode}
+\newcommand{\IXCharacterPlotPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Characters!#3, #2!#4} %
+        \protect\index[master]{Plot Points!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!Plot - ##1} %
+        \protect\index[plot]{#4!##1} %
+        \protect\index[master]{Plot Points!#4!##1} %
+        \protect\index[master]{Characters!#3, #2!#4} %
+    }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXRomance}
+% tag, first name A, last name A, first name B, last name B
+%    \begin{macrocode}
+\newcommand{\IXRomance}[5]{ %
+    \expandafter\def\csname ROMANCE#1\endcsname { %
+        \protect\index[char]{#3, #2!romantic relationships!with #5, #4} %
+        \protect\index[plot]{Romantic Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!romantic relationships!with #5, #4} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!romance with #5, #4} %
+        \protect\index[char]{#5, #4!romantic relationships!with #3, #2} %
+        \protect\index[plot]{Romantic Relationships!#5, #4!with #3, #2} %
+        \protect\index[master]{Characters!#5, #4!romantic relationships!with #3, #2} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#5, #4!with #5, #2} %
+        \protect\index[master]{Relationships!#5, #4!romance with #3, #2} %
+    }  %
+    \expandafter\def\csname ROMANCEX#1\endcsname { %
+        \protect\index[char]{#3, #2!romantic relationships!with #5, #4!##1} %
+        \protect\index[plot]{Romantic Relationships!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!romantic relationships!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!romance with #5, #4!##1} %
+        \protect\index[char]{#5, #4!romantic relationships!with #3, #2!##1} %
+        \protect\index[plot]{Romantic Relationships!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!romantic relationships!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!romance with #3, #2!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXFriends}
+%    \begin{macrocode}
+\newcommand{\IXFriends}[5]{ %
+    \expandafter\def\csname FRIENDS#1\endcsname { %
+        \protect\index[char]{#3, #2!friendships!with #5, #4} %
+        \protect\index[plot]{Friendships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!friendships!with #5, #4} %
+        \protect\index[master]{Plot Points!Friendships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!friendship with #5, #4} %
+        \protect\index[char]{#5, #4!friendships!with #3, #2} %
+        \protect\index[plot]{Friendships!#5, #4!with #3, #2} %
+        \protect\index[master]{Characters!#5, #4!friendships!with #3, #2} %
+        \protect\index[master]{Plot Points!Friendships!#5, #4!with #5, #2}  %
+        \protect\index[master]{Relationships!#5, #4!friendship with #3, #2} %
+    }  %
+    \expandafter\def\csname FRIENDSX#1\endcsname { %
+        \protect\index[char]{#3, #2!friendships!with #5, #4!##1} %
+        \protect\index[plot]{Friendships!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!friendships!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Friendships!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!friendship with #5, #4!##1} %
+        \protect\index[char]{#5, #4!friendships!with #3, #2!##1} %
+        \protect\index[plot]{Friendships!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!friendships!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Friendships!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!friendship with #3, #2!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXExes}
+%    \begin{macrocode}
+\newcommand{\IXExes}[5]{ %
+    \expandafter\def\csname EXES#1\endcsname { %
+        \protect\index[char]{#3, #2!former relationships!with #5, #4} %
+        \protect\index[plot]{Former Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!former relationships!with #5, #4} %
+        \protect\index[master]{Plot Points!Former Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!former relationship with #5, #4} %
+        \protect\index[char]{#5, #4!former relationships!with #3, #2} %
+        \protect\index[plot]{Former Relationship!#5, #4!with #3, #2}% %
+        \protect\index[master]{Characters!#5, #4!former relationships!with #3, #2} %
+        \protect\index[master]{Plot Points!Former Relationship!#5, #4!with #5, #2} %
+        \protect\index[master]{Relationships!#5, #4!former relationship with #3, #2} %
+    }  %
+    \expandafter\def\csname EXESX#1\endcsname { %
+        \protect\index[char]{#3, #2!former relationship!with #5, #4!##1} %
+        \protect\index[plot]{Former Relationship!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!former relationship!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Former Relationship!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!former relationship with #5, #4!##1} %
+        \protect\index[char]{#5, #4!former relationship!with #3, #2!##1} %
+        \protect\index[plot]{Former Relationship!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!former relationship!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Former Relationship!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!former relationship with #3, #2!##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXLocatedPlotPoint}
+% tag, city, location, plot point
+%    \begin{macrocode}
+\newcommand{\IXLocatedPlotPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4} %
+        \protect\index[master]{Plot Locations!#2!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Cities!#2}  %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4}  %
+        \protect\index[master]{Plot Locations!#2!#4} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXLocatedSubPlotPoint}
+% tag, city, location, plot point, plot sub point
+%    \begin{macrocode}
+\newcommand{\IXLocatedSubPlotPoint}[5]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!#5} %
+        \protect\index[plot]{#4!#5} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4!#5} %
+        \protect\index[master]{Plot Locations!#2!#4!#5} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!#5!##1} %
+        \protect\index[plot]{#4!#5!##1} % 
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Locations!#2!#3!##1} %
+        \protect\index[master]{Plot Points!#4!#5!##1} %
+        \protect\index[master]{Plot Locations!#2!#4!#5 - ##1} %
+    } %
+} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXLocatedCharacterPlotPoint}
+% tag, city, place name, first name, last name, plot point
+%    \begin{macrocode}
+\newcommand{\IXLocatedCharacterPlotPoint}[6]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#5, #4!#2!#6} %
+        \protect\index[plot]{#5, #4!#6} % 
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Plot Points!#5, #4!#6} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6} %
+    }
+    \expandafter\def\csname PLOTX#1\endcsname {    
+        \protect\index[char]{#5, #4!#2!#6!##1} %
+        \protect\index[plot]{#5, #4!#6!##1} % 
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Plot Points!#5, #4!#6!##1} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6 - ##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXLocatedCharacterSubPlotPoint}
+% tag, city, location, first name, last name, plot point, sub plot point
+%    \begin{macrocode}
+\newcommand{\IXLocatedCharacterSubPlotPoint}[7]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#5, #4!#2!#6!#7} %
+        \protect\index[plot]{#5, #4!#6!#7} % 
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Plot Points!#5, #4!#6!#7} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6!#7} %
+    }
+    \expandafter\def\csname PLOTX#1\endcsname {  %
+        \protect\index[char]{#5, #4!#2!#6!##1} %
+        \protect\index[plot]{#5, #4!#6!##1} % 
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Plot Points!#5, #4!#6!##1} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6 - #7 - ##1} %
+    } %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXResearch}
+%    \begin{macrocode}
+\newcommand{\IXResearch}[2]{ %
+    \expandafter\def\csname RSRCH#1\endcsname { %
+        \protect\index[research]{#1} %
+        \protect\index[master]{Research Notes!#1} %
+    } %
+    \expandafter\def\csname RSRCHX#1\endcsname { %
+        \protect\index[research]{#1!##1} %
+        \protect\index[master]{Research Notes!#1!##1} %
+    }     %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\IXRevision}
+%    \begin{macrocode}
+\newcommand{\IXRevision}[2]{  %
+    \expandafter\def\csname REV#1\endcsname { %
+        \protect\index[revision]{#1} %
+        \protect\index[master]{Revision Notes!#1} %
+    } %
+    \expandafter\def\csname REVX#1\endcsname { %
+        \protect\index[revision]{#1!##1} %
+        \protect\index[master]{Revision Notes!#1!##1} %
+    } % 
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\PrintNovelIndexes}
+%    \begin{macrocode}
+\newcommand{\PrintNovelIndexes}[0]{ %
+    \cleardoublepage %
+    \printindex[char] %
+    \printindex[setting] %
+    \printindex[plot] %
+    \printindex[revision] %
+    \printindex[research] %
+    \printindex[master] %
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\AtEndPreamble{ %
+    \SetupNovelIndexes %
+}
+%    \end{macrocode}
+
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput

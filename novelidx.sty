@@ -1,0 +1,341 @@
+%%
+%% This is file `novelidx.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% novelidx.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2021 by <+author+> <<+email+>>
+%% --------------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{novelidx}
+    [2021-10-17 0.1.0 Indexing helpers for novel writing]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% novelidx: Helper commands for indexing novel metadata
+%%%% Version 1.00, 2021-10-17, Tammy Cravit
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{novelidx}[2021-10-17 novel metadata indexing macros]
+\RequirePackage{etoolbox}
+\RequirePackage{imakeidx}
+\newcommand{\SetupNovelIndexes}{%
+    \indexsetup{level=\chapter*,toclevel=chapter} %
+    \makeindex[name=master,title=Master Cross Reference] %
+    \makeindex[name=char,title=Character Index] %
+    \makeindex[name=setting,title=Setting Index] %
+    \makeindex[name=plot,title=Plot Point Index] %
+    \makeindex[name=revision,title=Revision Notes] %
+    \makeindex[name=research,title=Researct Notes] %
+}
+\newcommand{\IXcharacter}[3]{%
+    \expandafter\def\csname CHAR#1\endcsname {%
+        \protect\index[char]{#3, #2} %
+        \protect\index[master]{Characters!#3, #2} %
+    } %
+    \expandafter\def\csname CHARX#1\endcsname ##1 {%
+        \protect\index[char]{#3, #2!##1} %
+        \protect\index[master]{Characters!#3, #2!##1} %
+    }%
+}
+\newcommand{\IXAssociatedCharacter}[4]{%
+    \expandafter\def\csname CHAR#1\endcsname {%
+        \protect\index[char]{#4!#3, #2}
+        \protect\index[master]{Characters!#3, #2}
+    }
+    \expandafter\def\csname CHARX#1\endcsname ##1 {%
+        \protect\index[char]{#4!#3, #2!##1}
+        \protect\index[master]{Characters!#3, #2!##1}
+    }
+}
+\newcommand{\IXSettingCity}[2]{%
+    \expandafter\def\csname LOC#1\endcsname {%
+        \protect\index[setting]{#2} %
+        \protect\index[master]{Cities!#2} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 {%
+        \protect\index[setting]{#2!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+    } %
+}
+\newcommand{\IXSettingCityPlace}[3]{%
+    \expandafter\def\csname LOC#1\endcsname {%
+        \protect\index[setting]{#2!#3} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 {%
+        \protect\index[setting]{#2!#3!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Locations!#2!#3!##1} %
+    } %
+}
+\newcommand{\IXSettingCategoryPlace}[4]{ %
+    \expandafter\def\csname LOC#1\endcsname { %
+        \protect\index[setting]{#2!#3!#4} %
+        \protect\index[setting]{#3!#2!#4} %
+        \protect\index[master]{Cities!#3} %
+        \protect\index[master]{Locations!#3!#4} %
+        \protect\index[master]{Locations!#2!#3!#4} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 { %
+        \protect\index[setting]{#2!#3!#4!##1} %
+        \protect\index[setting]{#3!#2!#4!##1} %
+        \protect\index[master]{Cities!#3!##1} %
+        \protect\index[master]{Locations!#3!#4!##1}  %
+        \protect\index[master]{Locations!#2!#3!#4 --- ##1}  %
+    }
+}
+\newcommand{\IXSettingCharacterPlace}[5]{ %
+    \expandafter\def\csname LOC#1\endcsname { %
+        \protect\index[character]{#3, #2!#4!#5} %
+        \protect\index[setting]{#4!#3, #2 - #5} %
+        \protect\index[master]{Cities!#4} %
+        \protect\index[master]{Locations!#4!#3, #2 - #5} %
+        \protect\index[master]{Character Locations!#3, #2!#4!#5} %
+    } %
+    \expandafter\def\csname LOCX#1\endcsname ##1 { %
+        \protect\index[character]{#3, #2!#4!#5!##1} %
+        \protect\index[setting]{#4!#3, #2 - #5!##1} %
+        \protect\index[master]{Cities!#4!##1} %
+        \protect\index[master]{Locations!#4!#3, #2 - #5!##1} %
+        \protect\index[master]{Character Locations!#3, #2!#4!#5 - ##1} %
+    } %
+}
+\newcommand{\IXPlotPoint}[2]{%
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2} %
+        \protect\index[master]{Plot Points!#2}  %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 {%
+        \protect\index[plot]{#2} %
+        \protect\index[master]{Plot Points!#2!##1} %
+    } %
+}
+\newcommand{\IXPlotSubPoint}[3]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2!#3} %
+        \protect\index[master]{Plot Points!#2!#3} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
+        \protect\index[plot]{#2!#3} %
+        \protect\index[master]{Plot Points!#2!#3!##1} %
+    } %
+}
+\newcommand{\IXPlotSubSubPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[plot]{#2!#3!#4} %
+        \protect\index[master]{Plot Points!#2!#3!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname ##1 { %
+        \protect\index[plot]{#2!#3!#4!##1} %
+        \protect\index[master]{Plot Points!#2!#3!#4 - ##1} %
+    } %
+}
+\newcommand{\IXCharacterPlotPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Characters!#3, #2!#4} %
+        \protect\index[master]{Plot Points!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!Plot - ##1} %
+        \protect\index[plot]{#4!##1} %
+        \protect\index[master]{Plot Points!#4!##1} %
+        \protect\index[master]{Characters!#3, #2!#4} %
+    }
+}
+\newcommand{\IXRomance}[5]{ %
+    \expandafter\def\csname ROMANCE#1\endcsname { %
+        \protect\index[char]{#3, #2!romantic relationships!with #5, #4} %
+        \protect\index[plot]{Romantic Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!romantic relationships!with #5, #4} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!romance with #5, #4} %
+        \protect\index[char]{#5, #4!romantic relationships!with #3, #2} %
+        \protect\index[plot]{Romantic Relationships!#5, #4!with #3, #2} %
+        \protect\index[master]{Characters!#5, #4!romantic relationships!with #3, #2} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#5, #4!with #5, #2} %
+        \protect\index[master]{Relationships!#5, #4!romance with #3, #2} %
+    }  %
+    \expandafter\def\csname ROMANCEX#1\endcsname { %
+        \protect\index[char]{#3, #2!romantic relationships!with #5, #4!##1} %
+        \protect\index[plot]{Romantic Relationships!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!romantic relationships!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!romance with #5, #4!##1} %
+        \protect\index[char]{#5, #4!romantic relationships!with #3, #2!##1} %
+        \protect\index[plot]{Romantic Relationships!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!romantic relationships!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Romantic Relationships!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!romance with #3, #2!##1} %
+    } %
+}
+\newcommand{\IXFriends}[5]{ %
+    \expandafter\def\csname FRIENDS#1\endcsname { %
+        \protect\index[char]{#3, #2!friendships!with #5, #4} %
+        \protect\index[plot]{Friendships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!friendships!with #5, #4} %
+        \protect\index[master]{Plot Points!Friendships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!friendship with #5, #4} %
+        \protect\index[char]{#5, #4!friendships!with #3, #2} %
+        \protect\index[plot]{Friendships!#5, #4!with #3, #2} %
+        \protect\index[master]{Characters!#5, #4!friendships!with #3, #2} %
+        \protect\index[master]{Plot Points!Friendships!#5, #4!with #5, #2}  %
+        \protect\index[master]{Relationships!#5, #4!friendship with #3, #2} %
+    }  %
+    \expandafter\def\csname FRIENDSX#1\endcsname { %
+        \protect\index[char]{#3, #2!friendships!with #5, #4!##1} %
+        \protect\index[plot]{Friendships!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!friendships!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Friendships!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!friendship with #5, #4!##1} %
+        \protect\index[char]{#5, #4!friendships!with #3, #2!##1} %
+        \protect\index[plot]{Friendships!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!friendships!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Friendships!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!friendship with #3, #2!##1} %
+    } %
+}
+\newcommand{\IXExes}[5]{ %
+    \expandafter\def\csname EXES#1\endcsname { %
+        \protect\index[char]{#3, #2!former relationships!with #5, #4} %
+        \protect\index[plot]{Former Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Characters!#3, #2!former relationships!with #5, #4} %
+        \protect\index[master]{Plot Points!Former Relationships!#3, #2!with #5, #4} %
+        \protect\index[master]{Relationships!#3, #2!former relationship with #5, #4} %
+        \protect\index[char]{#5, #4!former relationships!with #3, #2} %
+        \protect\index[plot]{Former Relationship!#5, #4!with #3, #2}% %
+        \protect\index[master]{Characters!#5, #4!former relationships!with #3, #2} %
+        \protect\index[master]{Plot Points!Former Relationship!#5, #4!with #5, #2} %
+        \protect\index[master]{Relationships!#5, #4!former relationship with #3, #2} %
+    }  %
+    \expandafter\def\csname EXESX#1\endcsname { %
+        \protect\index[char]{#3, #2!former relationship!with #5, #4!##1} %
+        \protect\index[plot]{Former Relationship!#3, #2!with #5, #4!##1} %
+        \protect\index[master]{Characters!#3, #2!former relationship!with #5, #4 - ##1} %
+        \protect\index[master]{Plot Points!Former Relationship!#3, #2!with #5, #4 - ##1} %
+        \protect\index[master]{Relationships!#3, #2!former relationship with #5, #4!##1} %
+        \protect\index[char]{#5, #4!former relationship!with #3, #2!##1} %
+        \protect\index[plot]{Former Relationship!#5, #4!with #3, #2!##1} %
+        \protect\index[master]{Characters!#5, #4!former relationship!with #3, #2 - ##1} %
+        \protect\index[master]{Plot Points!Former Relationship!#5, #4!with #3, #2 - ##1} %
+        \protect\index[master]{Relationships!#5, #4!former relationship with #3, #2!##1} %
+    } %
+}
+\newcommand{\IXLocatedPlotPoint}[4]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4} %
+        \protect\index[master]{Plot Locations!#2!#4} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4} %
+        \protect\index[plot]{#4} %
+        \protect\index[master]{Cities!#2}  %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4}  %
+        \protect\index[master]{Plot Locations!#2!#4} %
+    } %
+}
+\newcommand{\IXLocatedSubPlotPoint}[5]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!#5} %
+        \protect\index[plot]{#4!#5} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Locations!#2!#3} %
+        \protect\index[master]{Plot Points!#4!#5} %
+        \protect\index[master]{Plot Locations!#2!#4!#5} %
+    } %
+    \expandafter\def\csname PLOTX#1\endcsname { %
+        \protect\index[char]{#3, #2!#4!#5!##1} %
+        \protect\index[plot]{#4!#5!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Locations!#2!#3!##1} %
+        \protect\index[master]{Plot Points!#4!#5!##1} %
+        \protect\index[master]{Plot Locations!#2!#4!#5 - ##1} %
+    } %
+}
+\newcommand{\IXLocatedCharacterPlotPoint}[6]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#5, #4!#2!#6} %
+        \protect\index[plot]{#5, #4!#6} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Plot Points!#5, #4!#6} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6} %
+    }
+    \expandafter\def\csname PLOTX#1\endcsname {
+        \protect\index[char]{#5, #4!#2!#6!##1} %
+        \protect\index[plot]{#5, #4!#6!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Plot Points!#5, #4!#6!##1} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6 - ##1} %
+    } %
+}
+\newcommand{\IXLocatedCharacterSubPlotPoint}[7]{ %
+    \expandafter\def\csname PLOT#1\endcsname { %
+        \protect\index[char]{#5, #4!#2!#6!#7} %
+        \protect\index[plot]{#5, #4!#6!#7} %
+        \protect\index[master]{Cities!#2} %
+        \protect\index[master]{Plot Points!#5, #4!#6!#7} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6!#7} %
+    }
+    \expandafter\def\csname PLOTX#1\endcsname {  %
+        \protect\index[char]{#5, #4!#2!#6!##1} %
+        \protect\index[plot]{#5, #4!#6!##1} %
+        \protect\index[master]{Cities!#2!##1} %
+        \protect\index[master]{Plot Points!#5, #4!#6!##1} %
+        \protect\index[master]{Plot Locations!#2!#3 (#5, #4)!#6 - #7 - ##1} %
+    } %
+}
+\newcommand{\IXResearch}[2]{ %
+    \expandafter\def\csname RSRCH#1\endcsname { %
+        \protect\index[research]{#1} %
+        \protect\index[master]{Research Notes!#1} %
+    } %
+    \expandafter\def\csname RSRCHX#1\endcsname { %
+        \protect\index[research]{#1!##1} %
+        \protect\index[master]{Research Notes!#1!##1} %
+    }     %
+}
+\newcommand{\IXRevision}[2]{  %
+    \expandafter\def\csname REV#1\endcsname { %
+        \protect\index[revision]{#1} %
+        \protect\index[master]{Revision Notes!#1} %
+    } %
+    \expandafter\def\csname REVX#1\endcsname { %
+        \protect\index[revision]{#1!##1} %
+        \protect\index[master]{Revision Notes!#1!##1} %
+    } %
+}
+\newcommand{\PrintNovelIndexes}[0]{ %
+    \cleardoublepage %
+    \printindex[char] %
+    \printindex[setting] %
+    \printindex[plot] %
+    \printindex[revision] %
+    \printindex[research] %
+    \printindex[master] %
+}
+\AtEndPreamble{ %
+    \SetupNovelIndexes %
+}
+
+\endinput
+%%
+%% End of file `novelidx.sty'.

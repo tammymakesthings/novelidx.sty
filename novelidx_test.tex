@@ -1,0 +1,33 @@
+% arara: pdflatex
+
+\documentclass[12pt]{memoir}
+\usepackage{novelidx}
+\usepackage{lipsum}
+
+\SetupNovelIndexes
+
+\IXcharacter{kaylen}{Kaylen}{Grace}
+\IXcharacter{nikki}{Nikki}{Saylor}
+
+\begin{document}
+
+\chapter{Chapter One}
+\lipsum{2}
+\CHARkaylen \lipsum{3}
+\CHARnikki \lipsum{3}
+\CHARkaylen
+\lipsum{5}
+
+\chapter{Chapter Two}
+\lipsum{5}
+\CHARkaylen \lipsum{4}
+\CHARnikki \lipsum{5}
+\CHARXnikki{foo} \lipsum{3}
+\CHARXnikki{foo!bar} \lipsum{3}
+\CHARkaylen
+\lipsum{5}
+
+\cleardoublepage
+\PrintNovelIndexes
+
+\end{document}
