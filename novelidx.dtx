@@ -157,27 +157,36 @@
 % creation macros'', and the commands which these macros define as ``index
 % marking macros''.
 %
-% The index marking commands created by the package follow a consistent 
-% naming pattern, as follows:
+% The `standard form' index marking commands created by the package follow a
+% consistent naming pattern, as follows:
 %
-% \begin{center}
-% \begin{tabularx}{\textwidth}{|l|l|ll|}
-% \hline
-% \textbf{Entry Type} & \textbf{Subtype}             & \textbf{``Standard'' Prefix} & \textbf{``Extra'' Prefix} \\
-% \hline
-% \textbf{Character}  & Normal Character             & \texttt{CHAR}                & \texttt{CHARX}            \\
-% \textbf{Character}  & Romantic Relationship        & \texttt{ROMANCE}             & \texttt{ROMANCEX}         \\
-% \textbf{Character}  & Friendship                   & \texttt{FRIENDS}             & \texttt{FRIENDSX}         \\
-% \textbf{Character}  & Former Romantic Relationship & \texttt{EXES}                & \texttt{EXESC}            \\
-% \cline
-% \multicolumn{2}{|l|}\textbf{Setting}               & \texttt{LOC}                 & \texttt{LOCX}             \\
-% \multicolumn{2}{|l|}\textbf{Plot Point}            & \texttt{PLOT}                & \texttt{PLOTX}            \\
-% \multicolumn{2}{|l|}\textbf{Research Item}         & \texttt{RSRCH}               & \texttt{RSRCHX}           \\
-% \multicolumn{2}{|l|}\textbf{Revision Item}         & \texttt{REV}                 & \texttt{REVX}             \\
-% \hline
-% \end{tabular}
-% \end{center}
+% \begin{description}
+%     \item[Character - Normal Character] \texttt{CHAR}
+%     \item[Character - Current Romance] \texttt{ROMANCE}
+%     \item[Character - Former Romance] \texttt{EXES}
+%     \item[Character - Friendship] \texttt{FRIENDS}
+%     \item[Setting] \texttt{LOC}
+%     \item[Plot Point] \texttt{PLOT}
+%     \item[Research Item] \texttt{RSRCH}
+%     \item[Revision Item] \texttt{REV}
+% \end{description}
 %
+% The `extra form' index marking commands created by the package follow a similar
+% pattern, but add an X after the standard form prefix, like so:
+%
+% \begin{description}
+%     \item[Character - Normal Character] \texttt{CHAR}
+%     \item[Character - Current Romance] \texttt{ROMANCE}
+%     \item[Character - Former Romance] \texttt{EXES}
+%     \item[Character - Friendship] \texttt{FRIENDS}
+%     \item[Setting] \texttt{LOC}
+%     \item[Plot Point] \texttt{PLOT}
+%     \item[Research Item] \texttt{RSRCH}
+%     \item[Revision Item] \texttt{REV}
+% \end{description}
+%
+% You can see examples of all the index creation commands and the index marking
+% commands they create in the file \texttt{novelidx\_test.tex}.
 %
 % Each index creation macro takes a specific number of arguments as described
 % in the following sections. The first argument of each macro is always a
@@ -185,12 +194,10 @@
 % to form the name of the resulting index marking macro. For example, after
 % including the commands:
 %
-% \begin{verbatim}
-%   \IXCharacter{jane}{Jane}{Smith}
-%   \IXCharacter{doug}{Doug}{Jones}
-%   \IXSettingCityPlace{janeshouse}{Phoenix}{Jane's House}
-%   \IXFriends{janedoug}{Jane}{Smith}{Doug}{Jones}
-% \end{verbatim}
+% \verb|\IXCharacter{jane}{Jane}{Smith}|
+% \verb|\IXCharacter{doug}{Doug}{Jones}|
+% \verb|\IXSettingCityPlace{janeshouse}{Phoenix}{Jane's House}|
+% \verb|\IXFriends{janedoug}{Jane}{Smith}{Doug}{Jones}|
 %
 % The following index marking macros will exist for indexing:
 %
@@ -485,7 +492,7 @@
 %     \item[Arguments]
 %         \begin{enumerate}
 %             \item Index-marking command tag (must be unique)
-%             \item City name (or city/state, etc.~)
+%             \item City name (or city/state, etc.)
 %             \item Place name
 %             \item Character first name
 %             \item Character last name
